@@ -81,9 +81,25 @@
 - `slurm_executor.sh` is extremely useful for saving the slurm scripts used/built. If you ever find that you are launching a lot of slurm scripts and want to save the actual script code used use it (helpful if runs keep failing and dont want to have to change params). With the "none" option this also serves to just save the bash script being used.
 - If CPU ram is leaking over time, chances are its because either code saving the comp graph or because of a dataloader (i.e. an HF dataloader). Check if it occurs with a dummy dataloader, if it occurs with non multi GPU, etc. If is CPU RAM is probably data. If is GPU ram is probably tensors.
 
-## Known Issues/TODOs (feel free to make a PR to fix!)
+## Citation
+
+If you liked the paper/code feel free to use the bibtex below! 
+
+```bibtex
+@misc{gladstone2025energybasedtransformersscalablelearners,
+  title={Energy-Based Transformers are Scalable Learners and Thinkers}, 
+  author={Alexi Gladstone and Ganesh Nanduru and Md Mofijul Islam and Peixuan Han and Hyeonjeong Ha and Aman Chadha and Yilun Du and Heng Ji and Jundong Li and Tariq Iqbal},
+  year={2025},
+  eprint={2507.02092},
+  archivePrefix={arXiv},
+  primaryClass={cs.LG},
+  url={https://arxiv.org/abs/2507.02092}, 
+}
+```
+
+## Known Issues/TODOs
 - not using KV cache for inference (not implemented). also the ebt inference is not optimized at all (you can reduce the ebt parallelization implementation, etc)
 - there is no preprocessing support for CV stuff yet (i.e. pre-encoding)
 - there is a small very minor bug with the learning rate of non model parameters (they will all decay to the same lr value of other parameters)
-- let me know of any others and feel free to add issues on github!
+- let me know of any others and feel free to add issues on github :)!
 
