@@ -41,8 +41,8 @@ class EBTModelArgs:
     ebt_act_func: str = "silu"
     weight_initialization_gain: float = 1.0
 
-model_sizes = { # small -> xl same as mamba https://arxiv.org/pdf/2312.00752
-    "4xs": { # LR 0.0024 -- this doesnt really adhere to scaling trends
+model_sizes = { # small -> xl same as mamba https://arxiv.org/pdf/2312.00752; all others estimated empirically. LRs based off mamba where applicable
+    "4xs": { # LR 0.0024 recommended
         "num_transformer_blocks": 2,
         "multiheaded_attention_heads": 2,
         "embedding_dim": 128,
@@ -86,47 +86,7 @@ model_sizes = { # small -> xl same as mamba https://arxiv.org/pdf/2312.00752
         "num_transformer_blocks": 24,
         "multiheaded_attention_heads": 32,
         "embedding_dim": 2048,
-    }, #NOTE n stands for new, are more linear scaling that favors EBT
-    "N_4xs": { # LR 0.0024 -- this doesnt really adhere to scaling trends
-        "num_transformer_blocks": 2,
-        "multiheaded_attention_heads": 2,
-        "embedding_dim": 128,
-    },
-    "N_3xs": { # LR 0.0018
-        "num_transformer_blocks": 4,
-        "multiheaded_attention_heads": 4,
-        "embedding_dim": 192,
-    },
-    "N_2xs": { # LR 0.0012 same as before
-        "num_transformer_blocks": 6,
-        "multiheaded_attention_heads": 6,
-        "embedding_dim": 240,
-    },
-    "N_xs": { # LR 0.0009
-        "num_transformer_blocks": 8,
-        "multiheaded_attention_heads": 8,
-        "embedding_dim": 288,
-    },
-    "N_small": { # LR 0.0006 same as before
-        "num_transformer_blocks": 12,
-        "multiheaded_attention_heads": 12,
-        "embedding_dim": 384,
-    },
-    "N_medium": { # 0.0003
-        "num_transformer_blocks": 16,
-        "multiheaded_attention_heads": 16,
-        "embedding_dim": 480,
-    },
-    "N_large": { # 0.00025
-        "num_transformer_blocks": 20,
-        "multiheaded_attention_heads": 20,
-        "embedding_dim": 560,
-    },
-    "N_xl": { # 0.0002
-        "num_transformer_blocks": 24,
-        "multiheaded_attention_heads": 24,
-        "embedding_dim": 624,
-    },
+    }
 }
 
 

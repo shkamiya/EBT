@@ -137,6 +137,7 @@ core*
 wandb
 
 *.png
+!assets/*.png
 *.svg
 
 lightning_logs/
