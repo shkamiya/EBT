@@ -14,7 +14,11 @@ from data.nlp.collator import NLP_HF_Collator
 from model.nlp.baseline_transformer import Baseline_Transformer_NLP
 from model.nlp.ebt import EBT_NLP
 
-# NOTE this code is not to reproduce results bc doesnt have all features (LR scheduler, correct wd on all params, etc); is just a proof of concept for how things work. results are far from exact; recommended to use whole codebase
+########################################################################################################################
+
+# NOTE IMPORTANT this code is not to reproduce results because it doesnt have all features (LR scheduler, correct wd on all params, etc); it is just a proof of concept for how things work. results are far from exact; it is recommended to use the whole codebase 
+
+########################################################################################################################
 
 class ModelWrapper(pl.LightningModule):
     def __init__(self, hparams: Dict[str, Any]):
