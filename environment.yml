@@ -1,4 +1,4 @@
-name: pytorch_2.4
+name: ebt
 channels:
   - defaults
 dependencies:

@@ -87,7 +87,7 @@ def main():
         no_mcmc_detach=False,
         # only up to these first ones are actually used, and really only the first four of them are real hparams (the others can stay as they are so normalize, learnable, and condition dont need to be tuned). time_embed can also almost always stay and mcmc_num_steps = 2 is very safe. keeping mcmc_step_size_lr_multiplier = 3x mcmc_step_size is safe and what works well so the most important and arguably only really neccesary to tune hparam is mcmc_step_size
 
-        # below are just to make existing code run well and happy :)
+        # below are just to make existing code run well and happy :) they are not used at all. you can try them out if you ever want to add fancier hparams but are not recommended for getting started
         ebt_norm="rms",
         ebt_act_func="silu",
         dyt_alpha_init=0.5,
