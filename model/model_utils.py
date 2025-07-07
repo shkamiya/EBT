@@ -282,17 +282,6 @@ def denormalize(tensor, dataset_name, device, custom_normalization, vae_normaliz
     else:
         return tensor * default_std + default_mean
 
-# def scale_clamp(tensor, min_value, max_value): #this is made to be a differentiable version of torch's clamp
-#     scale_down_factor = torch.where(tensor > max_value, tensor / max_value, torch.ones_like(tensor))
-#     scale_up_factor = torch.where(tensor < min_value, tensor / min_value, torch.ones_like(tensor))
-    
-#     combined_scale_factor = torch.where(tensor > max_value, scale_down_factor, 
-#                                         torch.where(tensor < min_value, scale_up_factor, torch.ones_like(tensor)))
-    
-#     scaled_tensor = tensor / combined_scale_factor
-    
-#     return scaled_tensor
-
 def scale_clamp(tensor, min_value, max_value):
     scale_factor = torch.ones_like(tensor)
     scale_factor = torch.where(tensor > max_value, tensor / max_value, scale_factor)

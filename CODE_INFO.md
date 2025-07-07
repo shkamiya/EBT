@@ -33,3 +33,137 @@
 - There is no preprocessing support for anything in vision yet (i.e. pre-encoding).
 - there is a small very minor bug with the learning rate of non model parameters (they will all decay to the same learning rate value of other parameters).
 - Let me know of any other issues and feel free to add issues on github :)!
+
+## Full Repository Structure
+
+*init.py removed for your sake*
+
+┌── abbreviations.md
+├── assets
+│   └── model.png
+├── base_model_trainer.py
+├── CODE_INFO.md
+├── data
+│   ├── img
+│   │   ├── coco_medium_dataset.py
+│   │   ├── coco_tiny_dataset.py
+│   │   ├── imagenet_dataloader.py
+│   ├── nlp
+│   │   ├── ai2arc_dataloader.py
+│   │   ├── bigbench_dataloader.py
+│   │   ├── collator.py
+│   │   ├── fineweb_dataloader.py
+│   │   ├── get_dataset_statistics.py
+│   │   ├── gsm8k_dataloader.py
+│   │   ├── lambada_dataset.py
+│   │   ├── pajama_dataloader.py
+│   │   ├── planbench_dataloader.py
+│   │   ├── squad_dataloader.py
+│   │   └── synthetic_dataset.py
+│   └── vid
+│       ├── aggregate_dataloader.py
+│       ├── corrupt_files
+│       │   ├── k400.txt
+│       │   ├── ssv2.txt
+│       │   └── ucf.txt
+│       ├── data_preprocessor.py
+│       ├── downloader
+│       │   └── ego4d.py
+│       ├── kinetics_dataloader.py
+│       ├── README.md
+│       ├── something_dataloader.py
+│       ├── ucf_dataloader.py
+│       └── vid_synthetic_dataset.py
+├── environment.yml
+├── example_code
+│   └── minimal_nlp_training_loop.py
+├── gh200_requirements.txt
+├── .gitignore
+├── inference
+│   ├── img
+│   │   └── generate_image.py
+│   ├── nlp
+│   │   ├── eval.py
+│   │   └── generate_text.py
+│   └── vid
+│       ├── generate_video.py
+│       └── README.md
+├── job_scripts
+│   ├── debug
+│   │   ├── debug_code2.sh
+│   │   ├── debug_code.sh
+│   │   └── debug_dataloader.sh
+│   ├── img
+│   │   ├── inference
+│   │   │   ├── dit_denoising.sh
+│   │   │   └── ebt_denoising.sh
+│   │   ├── pretrain_denoising
+│   │   │   ├── dit.sh
+│   │   │   ├── ebt_s1.sh
+│   │   │   └── ebt_s2.sh
+│   │   └── pretrain_t2i
+│   │       ├── dit.sh
+│   │       ├── ebt_s1.sh
+│   │       └── ebt_s2.sh
+│   ├── nlp
+│   │   ├── inference
+│   │   │   ├── baseline_transformer.sh
+│   │   │   └── ebt.sh
+│   │   └── pretrain
+│   │       ├── baseline_transformer.sh
+│   │       ├── ebt_s1_mn.sh
+│   │       ├── ebt_s1.sh
+│   │       └── ebt_s2.sh
+│   ├── slurm_headers
+│   │   └── reference_a100.slurm
+│   └── vid
+│       ├── inference
+│       │   ├── baseline_transformer_k400_vae.sh
+│       │   ├── baseline_transformer_ssv2_vae.sh
+│       │   ├── ebt_k400_vae.sh
+│       │   └── ebt_ssv2_vae.sh
+│       └── pretrain
+│           ├── baseline_transformer_dino.sh
+│           ├── baseline_transformer_vae.sh
+│           ├── ebt_s1_dino.sh
+│           ├── ebt_s1_vae.sh
+│           └── ebt_s2_vae.sh
+├── LICENSE
+├── loose_requirements.txt
+├── model
+│   ├── ar_ebt_adaln.py
+│   ├── ar_ebt_default.py
+│   ├── ar_ebt_time_embed.py
+│   ├── ar_transformer.py
+│   ├── bi_ebt_adaln.py
+│   ├── diffusion
+│   │   ├── diffusion_utils.py
+│   │   ├── gaussian_diffusion.py
+│   │   ├── respace.py
+│   │   └── timestep_sampler.py
+│   ├── diffusion_transformer.py
+│   ├── img
+│   │   ├── dit_denoise.py
+│   │   ├── dit_t2i.py
+│   │   ├── ebt_denoise.py
+│   │   └── ebt_t2i.py
+│   ├── model_utils.py
+│   ├── nlp
+│   │   ├── baseline_transformer.py
+│   │   ├── ebt.py
+│   ├── replay_buffer.py
+│   └── vid
+│       ├── baseline_transformer.py
+│       └── ebt.py
+├── optimization.py
+├── README.md
+├── requirements.txt
+├── slurm_executor.sh
+├── structure.txt
+├── train_model.py
+└── utils
+    ├── dataloader_debugger.py
+    ├── find_corrupt_files.py
+    ├── load_singularity.sh
+    ├── metrics_calculator.py
+    └── text_logger.py

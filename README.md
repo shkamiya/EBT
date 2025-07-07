@@ -34,11 +34,11 @@ Start by running a job script. There are two ways to do this:
 
 Running a bash script directly:
 
-`bash job_scripts/nlp/pretrain/ebt_s1.sh`
+```bash job_scripts/nlp/pretrain/ebt_s1.sh```
 
 Running a bash script using slurm executor (recommended on HPC if slurm is installed):
 
-`bash slurm_executor.sh reference_a100 job_scripts/nlp/pretrain/ebt_s1.sh`
+```bash slurm_executor.sh reference_a100 job_scripts/nlp/pretrain/ebt_s1.sh```
 - This method has a mandatory param (in this case `reference_a100`) which tells slurm_executor.sh how to build the slurm script (**Note**, *you need to tailor this and set the corresponding script according to your cluster.*). The available parameters are currently "reference_a100" (for your reference :). 
 - You can also just add a slurm header to the existing bash scripts and execute scripts using sbatch, which is more standard, but this `slurm_executor.sh` is super helpful for keeping code modular
   - To add an HPC config type for slurm_executor.sh please see the reference script [job_scripts/slurm_headers/reference_a100.slurm](job_scripts/slurm_headers/reference_a100.slurm) and add the script name to [slurm_executor.sh](./slurm_executor.sh)
@@ -51,8 +51,8 @@ There is an example minimal training loop in `example_code/minimal_nlp_training_
 
 ### Energy-Based Transformers Pretraining
 The pretraining scripts are located under the specific modality desired (i.e. NLP, IMG) in the `job_scripts` dir. For example, the NLP pretraining script in [job_scripts/nlp/pretrain/ebt_s1.sh](job_scripts/nlp/pretrain/ebt_s1.sh) is the System 1 EBT used for many experiments in the paper.
-  - There are several similar scripts for System 2 EBTs and for other modalities in the  `job_scripts` folder
-  - If you are training your own EBT, I recommend starting with these System 1 hyperparameters and then tweaking them from there, as EBT hyperparameters are very sensitive as discussed in the paper.
+  - There are several similar scripts for System 2 EBTs and for other modalities in the  `job_scripts` folder, that can all be run in the same manner (with bash directly or slurm).
+  - If you are training your own EBT, I recommend starting with these System 1 hyperparameters and then tweaking them from there, as EBT hyperparameters can be sensitive as discussed in the paper.
 
 
 ### Energy-Based Transformers Inference
@@ -60,7 +60,7 @@ The pretraining scripts are located under the specific modality desired (i.e. NL
 The inference scripts are located under the specific modality desired and under the inference subdirectory. For example, the NLP inference script in [job_scripts/nlp/inference/ebt.sh](job_scripts/nlp/inference/ebt.sh) is useful for EBTs. The biggest difference between pretraining and inference is the use of a pretrained checkpoint with `--only_test_model_ckpt`, `--only_test` for telling the trained to not train and just test, as well as `--execution_mode "inference"` which controls the "mode" of the training loop. Everything else is relatively standard and can be used to do more complex inference procedures, such as EBT System 2 Thinking with self-verification (`infer_generated_samples` and `infer_ebt_advanced`)
   - If you are looking for more fine-grained control over these it's possible to use `--only_test` without using `--execution_mode "inference"` (for example if all you want to do is calculate the perplexity of language models). You can see more on this in the `test_step` of `base_model_trainer.py` as well as in `train_model.py`
   - Most of the other hparams in the script dont matter as they will be inherited from the trained ckpt (this logic is in `train_model.py`).
-  - If using these make sure to fill in the `your/model/ckpt` as an actual .ckpt file
+  - If using these inference scripts make sure to fill in the `your/model/ckpt` as an actual .ckpt file
 
 
 ## General Code Flow
@@ -69,7 +69,7 @@ The inference scripts are located under the specific modality desired and under 
 - `train_model.py` will usually call `base_model_trainer.py`---this is the pytorch lightning trainer that is responsible for all training loop behavior, validation behavior, testing, dataset setup, logging, creating the optimizer and lr scheduler, etc. Feel free to check it out.
   - The most important lines in base_model_trainer.py are the `eval_step` function as well as the instantiation of `self.model`.
   - This file is also where the datasets are instantiated, particularly the `setup` function.
-- After the instantiation of `self.model`, different models will be created. Some examples of these can be seen in `.model/nlp`. These are also pytorch lightning modules, that way lightning handles all the gpu calls, distributed things, etc.
+- After the instantiation of `self.model`, different models will be created. Some examples of these can be seen in `model/nlp`. These are also pytorch lightning modules, that way lightning handles all the gpu calls, distributed things, etc.
 - After this, `train_model.py` will do something such as call `trainer.fit()` which will actually start training!
 - Generally, you should need to change little in train_model.py and base_model_trainer.py, aside from maybe some new args, models, metrics, and adding datasets. The biggest changes usually need to be made when adding new models and their architectures
 - If all you want is to get the model code and put it in your own training loop, just refer to the `model/` directory which has the model architectures, model forward/loss calculations, and other miscellaneous utils that models use.
@@ -78,6 +78,40 @@ The inference scripts are located under the specific modality desired and under 
 
 ## Repo Structure
 
+┌── abbreviations.md # has various abbreviations used in the repo
+├── base_model_trainer.py # 2nd most important file, contains PL training loop
+├── CODE_INFO.md # some extra information on coding
+├── data
+│   ├── img # various image datasets
+│   ├── nlp # various NLP datasets
+│   └── vid # various video datasets
+├── example_code
+│   └── minimal_nlp_training_loop.py # minimal training loop for language modeling
+├── inference
+│   ├── img # inference code for images
+│   ├── nlp # inference code for NLP
+│   └── vid # inference code for video
+├── job_scripts # all the bash/slurm scripts for training/running jobs
+├── model
+│   ├── ar_ebt_adaln.py # code for autoregressive EBT with adaptive layer norm, based on llama2
+│   ├── ar_ebt_default.py # code for autoregressive EBT default, based on llama2
+│   ├── ar_ebt_time_embed.py # code for autoregressive EBT with time embedding, based on llama2
+│   ├── ar_transformer.py # baseline Transformer++ from llama2
+│   ├── bi_ebt_adaln.py # bidirectional EBT with adaptive layer norm, based on DiT
+│   ├── diffusion # folder from diffusion repo
+│   ├── diffusion_transformer.py # code from DiT repo
+│   ├── img # image denoising, generation, etc, models
+│   ├── model_utils.py # useful code that several models use/share
+│   ├── nlp # nlp model implementations
+│   ├── replay_buffer.py # causal replay buffer
+│   └── vid # video model implementations
+├── optimization.py # some additional optimization code, LR scheduler, etc
+├── slurm_executor.sh # helper code for executing slurm scripts
+├── train_model.py # most important file, argparses and sets up PL trainer, etc
+└── utils # various useful files
+
+
+A more thorough structure tree of every file is also in [CODE_INFO.md](./CODE_INFO.md).
 
 ## Citation
 
