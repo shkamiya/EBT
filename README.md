@@ -24,7 +24,7 @@ You may want to set the $HF_HOME env variable so that your data/models cache to 
 
 If there are issues with PyTorch or any other packages you may also use the `gh200_requirements.txt` or `loose_requirements.txt` for requirements for GH200s and without nvidia, pytorch, and triton packages respectively. You can also create a conda environment using the `environment.yml`
 
-For the video dataset setup please see the README at [/data/vid/](/data/vid/README.md) for dataset installation and FFPROBE installation; similarly for video inference setup please see the README at [/inference/vid/](/inference/vid/README.md)
+For the video dataset setup please see the README at [/data/vid/](/data/vid/README.md) for dataset installation and FFPROBE installation; similarly for video inference setup please see the README at [/inference/vid/](/inference/vid/README.md).
 
  
 
@@ -52,10 +52,10 @@ The key parameters in these job scripts are *the RUN_NAME, MODEL_NAME, and MODEL
 
 If you want to do multinode, you may need to set `ntasks = ngpus` and run the code using `srun python filename.py` (see the [job_scripts/nlp/pretrain/ebt_s1_mn.sh](job_scripts/nlp/pretrain/ebt_s1_mn.sh) file. Note that very little multinode training was used for this paper, hence the lack of exploration of multinode code in the codebase. *You may also need to disable GPU binding in slurm headers (i.e. dont have `#SBATCH --gpu-bind=verbose,closest`)*, more on that [here](https://lightning.ai/docs/pytorch/stable/clouds/cluster_advanced.html).
 
-##### Example minimalistic training loop training language models with Transformer++ vs EBTs (NOTE this doesn't reproduce paper results)
+##### Run example minimalistic training loop for Transformer++ vs EBT language models (NOTE this doesn't reproduce paper results)
 
 ```
-example_code/minimal_nlp_training_loop.py
+python example_code/minimal_nlp_training_loop.py
 ```
 
 ### Energy-Based Transformers Pretraining
@@ -88,37 +88,37 @@ The inference scripts are located under the specific modality desired and under 
 ## Repo Structure
 
 ```
-┌── abbreviations.md # has various abbreviations used in the repo
-├── base_model_trainer.py # 2nd most important file, contains PL training loop
-├── CODE_INFO.md # some extra information on coding
+┌── abbreviations.md                  # has various abbreviations used in the repo
+├── base_model_trainer.py             # 2nd most important file, contains PL training loop
+├── CODE_INFO.md                      # some extra information on coding
 ├── data
-│   ├── img # various image datasets
-│   ├── nlp # various NLP datasets
-│   └── vid # various video datasets
+│   ├── img                           # various image datasets
+│   ├── nlp                           # various NLP datasets
+│   └── vid                           # various video datasets
 ├── example_code
-│   └── minimal_nlp_training_loop.py # minimal training loop for language modeling
+│   └── minimal_nlp_training_loop.py  # minimal training loop for language modeling
 ├── inference
-│   ├── img # inference code for images
-│   ├── nlp # inference code for NLP
-│   └── vid # inference code for video
+│   ├── img                           # inference code for images
+│   ├── nlp                           # inference code for NLP
+│   └── vid                           # inference code for video
 ├── job_scripts # all the bash/slurm scripts for training/running jobs
 ├── model
-│   ├── ar_ebt_adaln.py # code for autoregressive EBT with adaptive layer norm, based on llama2
-│   ├── ar_ebt_default.py # code for autoregressive EBT default, based on llama2
-│   ├── ar_ebt_time_embed.py # code for autoregressive EBT with time embedding, based on llama2
-│   ├── ar_transformer.py # baseline Transformer++ from llama2
-│   ├── bi_ebt_adaln.py # bidirectional EBT with adaptive layer norm, based on DiT
-│   ├── diffusion # folder from diffusion repo
-│   ├── diffusion_transformer.py # code from DiT repo
-│   ├── img # models for image denoising, generation, etc
-│   ├── model_utils.py # useful code that several models share
-│   ├── nlp # nlp model implementations
-│   ├── replay_buffer.py # causal replay buffer, only used by System 2 EBTs
-│   └── vid # video model implementations
-├── optimization.py # some additional optimization code, LR scheduler, etc
-├── slurm_executor.sh # helper code for executing slurm scripts
-├── train_model.py # most important file, argparses and sets up PL trainer, distributed, etc
-└── utils # various useful files
+│   ├── ar_ebt_adaln.py               # code for autoregressive EBT with adaptive layer norm, based on llama2
+│   ├── ar_ebt_default.py             # code for autoregressive EBT default, based on llama2
+│   ├── ar_ebt_time_embed.py          # code for autoregressive EBT with time embedding, based on llama2
+│   ├── ar_transformer.py             # baseline Transformer++ from llama2
+│   ├── bi_ebt_adaln.py               # bidirectional EBT with adaptive layer norm, based on DiT
+│   ├── diffusion                     # folder from diffusion repo
+│   ├── diffusion_transformer.py      # code from DiT repo
+│   ├── img                           # models for image denoising, generation, etc
+│   ├── model_utils.py                # useful code that several models share
+│   ├── nlp                           # nlp model implementations
+│   ├── replay_buffer.py              # causal replay buffer, only used by System 2 EBTs
+│   └── vid                           # video model implementations
+├── optimization.py                   # some additional optimization code, LR scheduler, etc
+├── slurm_executor.sh                 # helper code for executing slurm scripts
+├── train_model.py                    # most important file, argparses and sets up PL trainer, distributed, etc
+└── utils                             # various utilization files
 ```
 
 

@@ -23,7 +23,7 @@ If none of those work, you can download ffprobe at the [ffmpeg download site](ht
 
 ### Kinetics-400 & Kinetics-600
 
-To download Kinetics-400 and Kinetics-600, use the scripts at https://github.com/cvdfoundation/kinetics-dataset. Set the command-line argument `--dataset_dir=<path_to_dataset>`.
+To download Kinetics-400 and Kinetics-600, use the scripts at https://github.com/cvdfoundation/kinetics-dataset. Set the command-line argument `--dataset_dir=<path_to_dataset>`. Then set the `$K400_DIR` env variable.
 
 ### Something-something-v2
 SSv2 is distributed by Qualcomm in separate files at [this link](https://www.qualcomm.com/developer/software/something-something-v-2-dataset/downloads). Download the video files and the labels. After downloading all the video files, you can concatenate them and unzip them as a single file:
@@ -33,7 +33,8 @@ cat 20bn-something-something-v2-* > ssv2_archive
 tar -xvf ssv2_archive
 ```
 Also unzip the labels: ``unzip 20bn-something-something-download-package-labels.zip``
-Then, set the command-line argument `--dataset_dir=<path_to_dataset>`.
+Then, set the command-line argument `--dataset_dir=<path_to_dataset>`, or preferably set the `$SSV2_DIR` env variable.
+
 ### UCF-101
 
 Download the UCF dataset and annotations from UCF's website: https://www.crcv.ucf.edu/data/UCF101.php. *Note: as www.crcv.ucf.edu does not have a trusted certificate, if using wget to download you must provide the argument `--no-check-certificate`.*
