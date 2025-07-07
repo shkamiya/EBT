@@ -36,8 +36,9 @@
 
 ## Full Repository Structure
 
-*init.py removed for your sake*
+*init.py removed for your sanity :)*
 
+```
 ┌── abbreviations.md
 ├── assets
 │   └── model.png
@@ -167,3 +168,4 @@
     ├── load_singularity.sh
     ├── metrics_calculator.py
     └── text_logger.py
+  ```

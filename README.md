@@ -78,6 +78,7 @@ The inference scripts are located under the specific modality desired and under 
 
 ## Repo Structure
 
+```
 ┌── abbreviations.md # has various abbreviations used in the repo
 ├── base_model_trainer.py # 2nd most important file, contains PL training loop
 ├── CODE_INFO.md # some extra information on coding
@@ -109,6 +110,7 @@ The inference scripts are located under the specific modality desired and under 
 ├── slurm_executor.sh # helper code for executing slurm scripts
 ├── train_model.py # most important file, argparses and sets up PL trainer, etc
 └── utils # various useful files
+```
 
 
 A more thorough structure tree of every file is also in [CODE_INFO.md](./CODE_INFO.md).
