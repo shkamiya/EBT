@@ -140,8 +140,6 @@ If you find this repository useful, please consider giving a star ⭐ and citati
 }
 ```
 
+## Contact
 
-
-
-
-
+If you have questions feel free to post them on github issues, hugging face daily papers, or email me ([alexigladstone@gmail.com](mailto:alexigladstone@gmail.com)). Thank-you so much and hope you enjoy!
