@@ -2,7 +2,7 @@
 # ==== PBS directives ===================================================
 #PBS -q short-g
 #PBS -l select=1:ncpus=16:mem=100gb
-#PBS -l walltime=08:00:00
+#PBS -l walltime=04:00:00
 #PBS -N ebt-xxs-bs_256_s1_lr_
 #PBS -o logs/
 #PBS -e logs/
