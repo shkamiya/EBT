@@ -1,6 +1,8 @@
 # !/usr/bin/env python
 # coding: utf-8
 import os
+os.environ["HF_DATASETS_DOWNLOAD_RETRY_ATTEMPTS"] = "20"   # default=5
+os.environ["HF_DATASETS_DOWNLOAD_TIMEOUT"] = "120"         # default=10s
 from argparse import ArgumentParser
 import time
 import pytorch_lightning as L

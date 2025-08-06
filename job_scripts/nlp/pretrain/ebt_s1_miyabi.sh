@@ -2,7 +2,7 @@
 # ==== PBS directives ===================================================
 #PBS -q short-g
 #PBS -l select=1:ncpus=16:mem=100gb
-#PBS -l walltime=04:00:00
+#PBS -l walltime=08:00:00
 #PBS -N ebt-xxs-bs_256_s1_lr_
 #PBS -o logs/
 #PBS -e logs/
@@ -18,12 +18,16 @@ module load singularity
 cd $PBS_O_WORKDIR
 
 export REQUESTS_CA_BUNDLE=/etc/pki/tls/certs/ca-bundle.crt
+export SSL_CERT_FILE=/etc/pki/tls/certs/ca-bundle.crt
+
 export WANDB_API_KEY=ac9bc3f259163957d95686abca5fb49df1713b65
 
 export RUN_NAME="ebt-xxs-bs_256_s1_lr_"
 # NOTE ctrl d ALL THREE of above to modify job-name, output, and RUN_NAME (which should all be the same)
 export MODEL_NAME="${RUN_NAME%%-*}"
 export MODEL_SIZE="${RUN_NAME#*-}"; export MODEL_SIZE="${MODEL_SIZE%%-*}"
+
+export HF_HOME=/work/gj26/b20109/datasets
 
 TASK_ID=0
 
@@ -36,6 +40,7 @@ singularity exec --nv \
   --bind /etc/pki/tls/certs/ca-bundle.crt:/etc/pki/tls/certs/ca-bundle.crt \
   ~/singularity/pytorch_25.01.sif \
   python train_model.py \
+    --dataset_dir "/work/gj26/b20109/datasets" \
     --run_name ${RUN_NAME}${lr[${TASK_ID}]} \
     --modality "NLP" \
     --model_name ${MODEL_NAME} \
